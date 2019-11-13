@@ -16,14 +16,24 @@ import java.awt.image.BufferStrategy;
 public class Game extends Canvas implements Runnable
 {
 
-   public static final int WIDTH = 1000, HEIGHT = 1440;
+   public static final int WIDTH = 1000;
+   public static final int HEIGHT = 1440;
 
    private Thread thread;
    private boolean running = false;
+   
+   private Handler handler;
 
    Game()
    {
+      handler = new Handler();
+      this.addKeyListener(new KeyInput(handler));
+      
       new Window(HEIGHT, WIDTH, "FinalProject", this);
+      
+      handler.addObject(new Player(100, 100, ID.Player));
+      handler.addObject(new Player(200, 100, ID.Player));
+      
    }
 
    public synchronized void start()
@@ -81,7 +91,7 @@ public class Game extends Canvas implements Runnable
    
    private void tick()
    {
-      
+      handler.tick();
    }
    
    private void render()
@@ -94,8 +104,13 @@ public class Game extends Canvas implements Runnable
       }
       Graphics g = bs.getDrawGraphics();
       
-      g.setColor(Color.black);
+
+      
+      g.setColor(Color.white);
       g.fillRect(0, 0, HEIGHT, WIDTH);
+      
+      handler.render(g); 
+            
       g.dispose();
       bs.show();
    }
