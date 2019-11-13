@@ -10,6 +10,12 @@
  */
 public enum ID
 {
+   
+   
+   Weapon(),
+   NPC(),
+   Coin(),
    Player(),
    Enemy();
+   
 }
