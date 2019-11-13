@@ -1,4 +1,3 @@
-
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -26,13 +25,14 @@ public class Game extends Canvas implements Runnable
 
    Game()
    {
+      this.setFocusable(true);
       handler = new Handler();
       this.addKeyListener(new KeyInput(handler));
       
       new Window(HEIGHT, WIDTH, "FinalProject", this);
       
       handler.addObject(new Player(100, 100, ID.Player));
-      handler.addObject(new Player(200, 100, ID.Player));
+      handler.addObject(new Enemy(100,100, ID.Enemy));
       
    }
 
@@ -86,6 +86,7 @@ public class Game extends Canvas implements Runnable
             frames = 0;
          }
       }
+      
       stop();
    }
    
@@ -103,10 +104,8 @@ public class Game extends Canvas implements Runnable
          return;
       }
       Graphics g = bs.getDrawGraphics();
-      
-
-      
-      g.setColor(Color.white);
+           
+      g.setColor(Color.black);
       g.fillRect(0, 0, HEIGHT, WIDTH);
       
       handler.render(g); 
